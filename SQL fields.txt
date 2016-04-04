@@ -1,3 +1,9 @@
+id
 date
-time
-amount
+volume
+
+calendar
+
+compatible with pc
+
+insert historical data
