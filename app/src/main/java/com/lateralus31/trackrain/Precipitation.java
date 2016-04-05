@@ -3,6 +3,8 @@ package com.lateralus31.trackrain;
 import org.w3c.dom.Text;
 
 import java.sql.Date;
+import java.text.SimpleDateFormat;
+import java.util.Locale;
 
 /**
  * Created by Thomas Foster on 4/04/2016.
@@ -45,9 +47,11 @@ public class Precipitation
         return id;
     }
 
-    public Text getDate()
-    {
-        return date;
+    public String getDate() {
+        SimpleDateFormat dateFormat = new SimpleDateFormat(
+                "yyyy-MM-dd HH:mm:ss", Locale.getDefault());
+        Date date = new Date(0);
+        return dateFormat.format(date);
     }
 
     public Float getVolume()

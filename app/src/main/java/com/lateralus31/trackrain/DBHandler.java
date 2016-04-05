@@ -2,11 +2,13 @@ package com.lateralus31.trackrain;
 
 import android.content.ContentValues;
 import android.content.Context;
+import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
 import java.sql.Date;
 import java.text.SimpleDateFormat;
+import java.util.Locale;
 
 /**
  * Created by Thomas Foster on 4/04/2016.
@@ -49,8 +51,23 @@ public class DBHandler extends SQLiteOpenHelper {
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues values = new ContentValues();
         SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-        values.put(COL_DATE, precipitation.getDate());
+        values.put(COL_DATE, dateFormat.format(new Date()));
         values.put(COL_VOLUME, precipitation.getVolume());
+        //INSERTING ROW
+        db.insert(TABLE_PRECIPITATION, null, values);
+        db.close(); //CLOSING CONNECTION
+    }
+
+    //SHOW ENTRY
+    public Precipitation getPrecipitation(int id)
+    {
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor cursor = db.query(TABLE_PRECIPITATION, new String[] {COL_ID, COL_DATE, COL_VOLUME}, COL_ID + "=?",
+                new  String[] {String.valueOf(id)}, null, null, null, null);
+        if (cursor != null)
+            cursor.moveToFirst();
+        Precipitation entry = new Precipitation(Integer.parseInt(cursor.getString(0)), cursor.getString(1), cursor.getFloat(2));
+        return entry;
     }
 }
 
