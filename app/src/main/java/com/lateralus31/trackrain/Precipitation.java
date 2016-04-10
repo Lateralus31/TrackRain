@@ -12,7 +12,7 @@ import java.util.Locale;
 public class Precipitation
 {
     private int id;
-    private Text date;
+    private Long date;
     private Float volume;
 
     public Precipitation()
@@ -20,7 +20,7 @@ public class Precipitation
 
     }
 
-    public Precipitation(int id, Text date, Float volume)
+    public Precipitation(int id, Long date, Float volume)
     {
         this.id=id;
         this.date=date;
@@ -32,7 +32,7 @@ public class Precipitation
         this.id = id;
     }
 
-    public void setDate(Text date)
+    public void setDate(Long date)
     {
         this.date = date;
     }
@@ -47,11 +47,11 @@ public class Precipitation
         return id;
     }
 
-    public String getDate() {
-        SimpleDateFormat dateFormat = new SimpleDateFormat(
-                "yyyy-MM-dd HH:mm:ss", Locale.getDefault());
-        Date date = new Date(0);
-        return dateFormat.format(date);
+    public Long getDate() {
+        Date c = new Date(System.currentTimeMillis());
+        long milliseconds = c.getTime();
+        return milliseconds;
+    //To get current time
     }
 
     public Float getVolume()

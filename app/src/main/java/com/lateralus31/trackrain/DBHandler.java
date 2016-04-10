@@ -6,9 +6,9 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
-import java.sql.Date;
-import java.text.SimpleDateFormat;
-import java.util.Locale;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by Thomas Foster on 4/04/2016.
@@ -50,15 +50,15 @@ public class DBHandler extends SQLiteOpenHelper {
     {
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues values = new ContentValues();
-        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-        values.put(COL_DATE, dateFormat.format(new Date()));
+        //SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        values.put(COL_DATE, precipitation.getDate());
         values.put(COL_VOLUME, precipitation.getVolume());
         //INSERTING ROW
         db.insert(TABLE_PRECIPITATION, null, values);
         db.close(); //CLOSING CONNECTION
     }
 
-    //SHOW ENTRY
+    //SHOW ONE ENTRY
     public Precipitation getPrecipitation(int id)
     {
         SQLiteDatabase db = this.getReadableDatabase();
@@ -66,8 +66,50 @@ public class DBHandler extends SQLiteOpenHelper {
                 new  String[] {String.valueOf(id)}, null, null, null, null);
         if (cursor != null)
             cursor.moveToFirst();
-        Precipitation entry = new Precipitation(Integer.parseInt(cursor.getString(0)), cursor.getString(1), cursor.getFloat(2));
+        Precipitation entry = new Precipitation(Integer.parseInt(cursor.getString(0)), cursor.getLong(1), cursor.getFloat(2));
         return entry;
     }
+
+    //SHOW ALL ENTRIES
+    public List<Precipitation> getAllEntries()
+    {
+        List<Precipitation> precipitationList = new ArrayList<Precipitation>();
+        //SELECT ALL QUERY
+        String selectQuery = "SELECT * FROM " + TABLE_PRECIPITATION;
+        SQLiteDatabase db = this.getWritableDatabase();
+        Cursor cursor = db.rawQuery(selectQuery, null);
+        //LOOPING THROUGH ALL ROWS AND ADDING TO LIST
+        if (cursor.moveToFirst())
+        {
+            do {
+                Precipitation precipitation = new Precipitation();
+                precipitation.setId(Integer.parseInt(cursor.getString(0)));
+                precipitation.setDate(cursor.getLong(1));
+                precipitation.setVolume(cursor.getFloat(2));
+                precipitationList.add(precipitation);
+            } while (cursor.moveToNext());
+        }
+        return precipitationList;
+    }
+
+    //GET TOTAL ENTRY COUNT
+    public int getPrecipitationCount()
+    {
+        String countQuery = "SELECT * FROM " + TABLE_PRECIPITATION;
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor cursor = db.rawQuery(countQuery, null);
+        cursor.close();
+        //RETURN COUNT
+        return cursor.getCount();
+    }
+
+    //UPDATING A RECORD
+    public int updatePrecipitaton(Precipitation precipitation)
+    {
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues values = new ContentValues();
+        values.put(COL_DATE, precipitation.getDate())
+    }
+
 }
 
