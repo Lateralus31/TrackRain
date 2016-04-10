@@ -59,7 +59,7 @@ public class DBHandler extends SQLiteOpenHelper {
     }
 
     //SHOW ONE ENTRY
-    public Precipitation getPrecipitation(int id)
+    public Precipitation getEntry(int id)
     {
         SQLiteDatabase db = this.getReadableDatabase();
         Cursor cursor = db.query(TABLE_PRECIPITATION, new String[] {COL_ID, COL_DATE, COL_VOLUME}, COL_ID + "=?",
@@ -93,7 +93,7 @@ public class DBHandler extends SQLiteOpenHelper {
     }
 
     //GET TOTAL ENTRY COUNT
-    public int getPrecipitationCount()
+    public int getEntryCount()
     {
         String countQuery = "SELECT * FROM " + TABLE_PRECIPITATION;
         SQLiteDatabase db = this.getReadableDatabase();
@@ -104,11 +104,24 @@ public class DBHandler extends SQLiteOpenHelper {
     }
 
     //UPDATING A RECORD
-    public int updatePrecipitaton(Precipitation precipitation)
+    public int updateEntry(Precipitation precipitation)
     {
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues values = new ContentValues();
-        values.put(COL_DATE, precipitation.getDate())
+        values.put(COL_DATE, precipitation.getDate());
+        values.put(COL_VOLUME, precipitation.getVolume());
+        //updating a row
+        return db.update(TABLE_PRECIPITATION, values, COL_ID + " = ?",
+                new String[]{String.valueOf(precipitation.getId())});
+    }
+
+    //DELETING A RECORD
+    public void deleteEntry(Precipitation precipitation)
+    {
+        SQLiteDatabase db = this.getWritableDatabase();
+        db.delete(TABLE_PRECIPITATION, COL_ID + " = ?",
+                new String[] { String.valueOf(precipitation.getId())});
+        db.close();
     }
 
 }
