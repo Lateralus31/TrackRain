@@ -8,6 +8,8 @@ import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.View;
 
+import java.util.List;
+
 public class MainActivity extends AppCompatActivity {
 
     @Override
@@ -20,9 +22,19 @@ public class MainActivity extends AppCompatActivity {
 
         //INSERTING ENTRIES
         Log.d("Insert: ", "Inserting ..");
-        db.addEntry(new Precipitation("1", ""));
+        db.addEntry(new Precipitation(1, 1200l, 50f));
+        db.addEntry(new Precipitation(2, 1300l, 61f));
 
+        //READING SHOPS
+        Log.d("Reading: ", "Reading all shops..");
+        List<Precipitation> entries = db.getAllEntries();
 
+        for (Precipitation precipitation : entries)
+        {
+            String log = "Id: " + precipitation.getId() + " ,Date: " + precipitation.getDate() + " ,Volume: " + precipitation.getVolume();
+            //WRITING SHOPS TO LOG
+            Log.d("Precipitation: : ", log);
+        }
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);

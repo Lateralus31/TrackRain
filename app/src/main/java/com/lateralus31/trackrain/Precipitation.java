@@ -1,10 +1,6 @@
 package com.lateralus31.trackrain;
 
-import org.w3c.dom.Text;
-
 import java.sql.Date;
-import java.text.SimpleDateFormat;
-import java.util.Locale;
 
 /**
  * Created by Thomas Foster on 4/04/2016.
