@@ -16,6 +16,7 @@ public class MainActivity extends AppCompatActivity
 {
 
     Button buttonCalendar;
+    Button buttonViewData;
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
@@ -31,6 +32,18 @@ public class MainActivity extends AppCompatActivity
                 public void onClick(View v)
                 {
                     Intent i = new Intent(getApplicationContext(),CalendarView.class);
+                    startActivity(i);
+                }
+            });
+
+        //VIEW DATA BUTTON
+        buttonViewData=(Button)findViewById(R.id.btnViewTable);
+            buttonViewData.setOnClickListener(new View.OnClickListener()
+            {
+                @Override
+                public void onClick(View v)
+                {
+                    Intent i = new Intent(getApplicationContext(),DisplayTable.class);
                     startActivity(i);
                 }
             });

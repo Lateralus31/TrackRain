@@ -21,6 +21,10 @@
         <activity
             android:name=".CalendarView"
             android:label="@string/title_activity_calendar_view"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".DisplayTable"
+            android:label="@string/title_activity_display_table"
             android:theme="@style/AppTheme.NoActionBar"></activity>
     </application>
 
