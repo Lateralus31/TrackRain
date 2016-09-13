@@ -12,43 +12,12 @@
     tools:context="com.lateralus31.trackrain.DisplayTable"
     tools:showIn="@layout/activity_display_table">
 
-    <TableLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
-        <TableRow>
-            <TextView
-                android:text="ID"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_column="1" />
-            <TextView
-                android:text="Date"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_column="2" />
-            <TextView
-                android:text="Volume"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_column="3" />
-        </TableRow>
-        <TableRow>
-            <TextView
-                android:text="ID"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_column="1" />
-            <TextView
-                android:text="Date"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_column="2" />
-            <TextView
-                android:text="Volume"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_column="3" />
-        </TableRow>
-    </TableLayout>
 
+    <ListView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/listView"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="46dp" />
 </RelativeLayout>

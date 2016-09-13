@@ -7,8 +7,10 @@ import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
+import android.widget.ArrayAdapter;
 import android.widget.GridView;
 import android.widget.ListAdapter;
+import android.widget.ListView;
 import android.widget.SimpleCursorAdapter;
 
 import java.util.List;
@@ -24,8 +26,12 @@ public class DisplayTable extends AppCompatActivity
         setContentView(R.layout.activity_display_table);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+
+        ArrayAdapter adapter = new ArrayAdapter(this, R.layout.activity_display_table, allEntries);
+        ListView listView = (ListView) findViewById(R.id.listView);
+        listView.setAdapter(adapter);
     }
 
-    ListAdapter adapter=new SimpleCursorAdapter(this,android.R.layout.simple_list_item_2, allEntries, from, to);
+
 
 }
